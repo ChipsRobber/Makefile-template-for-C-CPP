@@ -56,6 +56,7 @@ CFLAGS = -I $(INCLUDE_PATH) -Wall -Wextra
 EXE = main.exe
 SOURCES = $(wildcard *$(SOURCES_SUFFIX))
 OBJS = $(SOURCES:$(SOURCES_SUFFIX)=$(OBJS_SUFFIX))
+INCLUDES = $(wildcard $(INCLUDE_PATH)/*.h)
 
 # language
 ifeq ($(LANGUAGE), c)
@@ -78,7 +79,7 @@ endif
 
 $(EXE)	: $(OBJS)
 	$(CC) -o $@ $^ $(LDFLAGS)
-$(OBJS)	: %$(OBJS_SUFFIX) : %$(SOURCES_SUFFIX)
+$(OBJS)	: %$(OBJS_SUFFIX) : %$(SOURCES_SUFFIX) $(INCLUDES)
 	$(CC) -o $@ -c $< $(CFLAGS)
 
 # PHONY
